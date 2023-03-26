@@ -1,0 +1,13 @@
+databases:
+  da:
+    client: better-sqlite3
+    connection:
+      filename: ./db/sqlite/da.sqlite3
+    migrations:
+      directory: ./dist/utils/db/migrations
+      extension: js
+      tableName: knex_migrations
+    seeds:
+      directory: ./dist/utils/db/seeds
+      extension: js
+    useNullAsDefault: true

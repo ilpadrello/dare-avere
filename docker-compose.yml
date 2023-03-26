@@ -1,0 +1,57 @@
+version: '3.9'
+
+services:
+  node:
+    #image: node:19-alpine3.16
+    #restart: always
+    build:  
+      context: ./
+      dockerfile: ./docker/node/Dockerfile
+    command: tail -f /dev/null
+    volumes:
+      - ./node:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - redis
+
+  mysql:
+    image: mysql:latest
+    #restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: U3uGB*QX65#0A8scIXSfgbMg
+      MYSQL_DATABASE: da
+      MYSQL_USER: dauser
+      MYSQL_PASSWORD: Fn6V^Lvh4zGyP#vEL4hLz0@q
+    volumes:
+      - ./node/db/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: mysql
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+
+  mailcatcher:
+    image: schickling/mailcatcher:latest
+    restart: always
+    ports:
+      - "1080:1080"

@@ -1,0 +1,10 @@
+node_modules/
+dist/*
+!dist/.gitkeep
+db/mysql/*
+!db/mysql/.gitkeep
+db/sqlite/*
+!db/sqlite/.gitkeep
+db/test/*
+!db/test/.gitkeep
+.npmrc

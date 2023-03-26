@@ -3,6 +3,13 @@
 A handy Dokerized Tool to keep track of expences with the wifey
 Me or my wife can add expenses that should be spitted in half (rent, kindergarden, grocery... others) in this way we will track the amount of money that eachother own. The point is to be absolutely transparent with the other with the money.
 
+# COMMAND LINE TOOL
+
+This will be a command line tool, at least at the beginning.
+There are already a app.ts and server.ts files that will be not erased to be used in the futur.
+So the main logic should be inside libraris that can be reused if the project will be used a service.
+Same goes for the docker-compose.yml
+
 # What we will be able to do with this ?
 
 ## CRUD of expense
@@ -16,8 +23,16 @@ Me or my wife can add expenses that should be spitted in half (rent, kindergarde
 - Backup / Export the database
 - Mail each month the backupped database.
 
+# Log in?
+
+- For the MVP a login is not provided, but it will be a feature for futher and other purposes.
+
 # TECHS
 
 ## Nodejs with TS
 
-NodejS with TS for the back
+For this project TS will be used for the main language.
+
+## Database
+
+SQLite with the possibility to export the backup in a json format.
