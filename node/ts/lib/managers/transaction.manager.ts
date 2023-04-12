@@ -62,7 +62,7 @@ class TransactionManager {
     if (
       !("amount" in transaction) ||
       !transaction.date ||
-      !transaction.percent ||
+      !("percent" in transaction) ||
       (!transaction.category && !transaction.category_id) ||
       (!transaction.payer && !transaction.payer_id)
     ) {
