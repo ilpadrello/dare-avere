@@ -21,13 +21,13 @@ const up = async function (knex: Knex) {
     table.float("amount").notNullable();
     table.timestamp("date").notNullable();
     table.string("payer_id").notNullable();
-    table.string("categories_id").notNullable();
+    table.string("category_id").notNullable();
     table.float("percent").notNullable().defaultTo(50);
-    table.string("comments").nullable();
+    table.string("comment").nullable();
 
     table.foreign("payer_id").references("payers.id").onDelete("RESTRICT");
     table
-      .foreign("categories_id")
+      .foreign("category_id")
       .references("categories.id")
       .onDelete("RESTRICT");
   });

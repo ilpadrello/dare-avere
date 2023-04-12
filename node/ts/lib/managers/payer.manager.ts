@@ -19,6 +19,17 @@ class PayerManager {
     return this._payers.find((payer) => payer.name === name);
   }
 
+  public async findById(id: string) {
+    const payer = (await knex("payers")
+      .where("id", id)
+      .select()
+      .first()) as DA.DB.Payer;
+    if (payer) {
+      return payer;
+    }
+    return;
+  }
+
   public async add(payer: DA.Payer) {
     //Check for name
     if (!payer.name) {

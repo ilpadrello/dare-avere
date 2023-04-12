@@ -1,34 +1,32 @@
 import promComp from "../prompt-completition";
 import chalk from "chalk";
+import balanceAction from "./report.actions/report.action.balance";
 
 // Import actions
-import listAction from "./transactions.actions/transaction.action.list";
-import addAction from "./transactions.actions/transaction.action.add";
-import sqlAction from "./transactions.actions/transaction.action.sql";
 
-async function transactionMenu() {
+async function reportsMenu() {
   let exit = false;
   do {
-    const result = await promComp(chalk.bold.blue("Transaction:"), [
-      "add",
-      "list",
+    const result = await promComp(chalk.bold.blue("Reports:"), [
+      "balance",
       "sql",
-      "import",
-      "export",
+      "category",
+      "month",
+      "years",
       "exit",
     ]);
     switch (result) {
-      case "list":
+      case "balance":
         console.clear();
-        await listAction();
+        await balanceAction();
         break;
       case "add":
         console.clear();
-        await addAction();
+
         break;
       case "sql":
         console.clear();
-        await sqlAction();
+
         break;
       case "import":
         console.clear();
@@ -50,4 +48,4 @@ async function transactionMenu() {
   return;
 }
 
-export default transactionMenu;
+export default reportsMenu;

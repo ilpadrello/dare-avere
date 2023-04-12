@@ -4,17 +4,23 @@ import categoryMenu from "./categories.menu";
 import transactionMenu from "./transactions.menu";
 import chalk from "chalk";
 import outputter from "../outputter";
+import reportsMenu from "./reports.menu";
 
 async function mainMenu() {
   let exit = false;
   do {
     const result = await promComp(chalk.bold.blue("Menu:"), [
+      "reports",
       "transactions",
       "categories",
       "payers",
       "exit",
     ]);
     switch (result) {
+      case "reports":
+        console.clear();
+        await reportsMenu();
+        break;
       case "payers":
         console.clear();
         await payersMenu();

@@ -10,8 +10,11 @@ const logger = {
     console.table(payload);
   },
   errorAsync: async (message: string) => {
-    console.clear();
     await promptCompletion(chalk.bold.bgRed(message), ["(Press Enter)"]);
+    console.clear();
+  },
+  successAsync: async (message: string) => {
+    await promptCompletion(chalk.bold.bgGreen(message), ["(Press Enter)"]);
     console.clear();
   },
 };
