@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import CategoryManager from "./category.manager";
 import PayerManager from "./payer.manager";
 import sanitizeSqlQuery from "../cli/sanitaze-sql";
+import { cp } from "node:fs";
 const formatter = new Intl.NumberFormat("fr-FR", {
   style: "currency",
   currency: "EUR",
@@ -31,17 +32,48 @@ class TransactionManager {
           amount: formatter.format(transaction.amount),
           date: new Date(transaction.date).toISOString().slice(0, 10),
           percent: transaction.percent + " %",
-          comment: transaction.comment,
+          comment: this._truncateString(transaction.comment),
         };
       })
     );
     return toReturn;
   }
 
+  private _addNewLines(input: string) {
+    if (!input) return null;
+    const words = input.split(" ");
+    let output = "";
+    let lineLength = 0;
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      const wordLength = word.length;
+
+      if (lineLength + wordLength > 30) {
+        output += "\n";
+        lineLength = 0;
+      }
+
+      output += word + " ";
+      lineLength += wordLength + 1;
+    }
+    return output.trim();
+  }
+
+  private _truncateString(input: string) {
+    if (input) {
+      const maxLength = 40;
+      if (input.length <= maxLength) {
+        return input;
+      }
+      console.log(input.slice(0, maxLength) + "...");
+      return input.slice(0, maxLength) + "...";
+    }
+    return "";
+  }
+
   public async listForDisplay() {
     const rawTransactions = await this.list();
-    const cateroryMan = new CategoryManager();
-    const payerMan = new PayerManager();
     return await this._formatForDisplay(rawTransactions);
   }
 
